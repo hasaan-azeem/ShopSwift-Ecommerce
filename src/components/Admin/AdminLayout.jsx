@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import AdminSidebar from "./AdminSidebar";
-import TopBar from "./TopBar";
+import TopBar from "./Topbar";
 
 const AdminLayout = () => (
   <div className="min-h-screen bg-gray-50">
