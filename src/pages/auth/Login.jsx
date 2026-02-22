@@ -24,13 +24,13 @@ const Login = () => {
     }
   };
 
- const handleGoogleLogin = () => {
-  window.location.href = "http://localhost:5000/api/auth/google";
-};
+  const handleGoogleLogin = () => {
+    window.location.href =
+      "https://shopswift-backend-kykw.onrender.com/api/auth/google";
+  };
 
   return (
     <>
-      
       <div className="min-h-screen flex flex-col items-center bg-white text-gray-900 relative overflow-hidden">
         {/* Main Section */}
         <main className="flex flex-col md:flex-row justify-between items-center w-full max-w-6xl mb-12 px-6 gap-10">

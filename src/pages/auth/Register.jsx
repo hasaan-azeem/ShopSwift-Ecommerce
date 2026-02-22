@@ -36,7 +36,8 @@ const Register = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:5000/api/auth/google";
+    window.location.href =
+      "https://shopswift-backend-kykw.onrender.com/api/auth/google";
   };
 
   return (
