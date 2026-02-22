@@ -1,4 +1,4 @@
-import OrderRow from "./Orderrow";
+import OrderRow from "./OrderRow";
 
 const DASHBOARD_HEADERS = [
   "Order ID",
