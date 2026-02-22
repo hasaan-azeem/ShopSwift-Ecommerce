@@ -46,7 +46,7 @@ const Header = () => {
           </nav>
 
           <div className="flex items-center space-x-4 text-gray-700">
-            {/* <Link to="/admin" className="block bg-black px-2 rounded text-sm text-white">Admin</Link> */}
+            <Link to="/admin" className="block bg-black px-2 rounded text-sm text-white">Admin</Link>
 
             {/* User icon — avatar if logged in with Google, initial if email, login icon if not logged in */}
             <Link
