@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Package, Loader2 } from "lucide-react";
-import OrdersTable from "../../components/Admin/ui/Orderstable";
+import OrdersTable from "../../components/Admin/ui/OrdersTable";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
