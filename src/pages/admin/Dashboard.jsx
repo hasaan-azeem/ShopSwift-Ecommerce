@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { DollarSign, ShoppingCart, Users, TrendingUp } from "lucide-react";
 import StatCard from "../../components/Admin/ui/StatCard";
-import OrdersTable from "../../components/Admin/ui/Orderstable";
-import SalesChart from "../../components/Admin/ui/Saleschart";
+import OrdersTable from "../../components/Admin/ui/OrdersTable";
+import SalesChart from "../../components/Admin/ui/SalesChart";
 
 const STAT_CONFIG = [
   {
