@@ -1,139 +1,31 @@
-import React, { useState, useEffect, useRef } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addItem } from "../../../redux/cartSlice";
+import { toast } from "sonner";
+import api from "../../../utils/api";
 
-const products = [
-  {
-    id: 1,
-    name: "MULTI STRIPE SWEATER",
-    Gender: "Men",
-    image:
-      "https://breakout.com.pk/cdn/shop/files/K25WS274-MLT_1.jpg?v=1763729208&width=480",
-    price: 3374,
-    oldPrice: 4399,
-  },
-  {
-    id: 2,
-    name: "LOOSE FIT DENIM",
-    Gender: "Men",
-    image:
-      "https://breakout.com.pk/cdn/shop/files/K25FD433-BLU_1.jpg?v=1763729218&width=480",
-    price: 2249,
-    oldPrice: 3699,
-  },
-  {
-    id: 3,
-    name: "CONTRAST HOODED TOP",
-    Gender: "Men",
-    image:
-      "https://breakout.com.pk/cdn/shop/files/K25WU269-BRN_1.jpg?v=1763535911&width=480",
-    price: 2699,
-    oldPrice: 3599,
-  },
-  {
-    id: 10,
-    name: "Girls Suit",
-    Gender: "Kids",
-    image: "https://engine.com.pk/cdn/shop/files/VTE069-BRP_6.jpg?v=1763370625",
-    price: 2599,
-    oldPrice: 3399,
-  },
-  {
-    id: 4,
-    name: "LOOSE CARGO DENIM",
-    Gender: "Men",
-    image:
-      "https://breakout.com.pk/cdn/shop/files/K25FD424-BLK_1.jpg?v=1763729221&width=480",
-    price: 2249,
-    oldPrice: 2999,
-  },
-  {
-    id: 8,
-    name: "Cargo Trouser",
-    Gender: "Kids",
-    image: "https://engine.com.pk/cdn/shop/files/VTU052-BLK_1.jpg?v=1763721485",
-    price: 2499,
-    oldPrice: 3399,
-  },
-  {
-    id: 5,
-    name: "DROP SHOULDER VARSITY SWEATSHIRT",
-    Gender: "Women",
-    image:
-      "https://breakout.com.pk/cdn/shop/files/K25WU371-RED_1.jpg?v=1763535904&width=480",
-    price: 2399,
-    oldPrice: 2999,
-  },
-  {
-    id: 6,
-    name: "BASIC SKINNY DENIM",
-    Gender: "Women",
-    image:
-      "https://breakout.com.pk/cdn/shop/files/K25FD509-LBL_1.jpg?v=1763729211&width=480",
-    price: 2099,
-    oldPrice: 2699,
-  },
-  {
-    id: 7,
-    name: "CARGO LOOSE DENIM",
-    Gender: "Women",
-    image:
-      "https://breakout.com.pk/cdn/shop/files/K25FD502-BLU_1.jpg?v=1763729214&width=480",
-    price: 2399,
-    oldPrice: 3399,
-  },
-  {
-    id: 12,
-    name: "Graphic Sweatshirt",
-    Gender: "Kids",
-    image: "https://engine.com.pk/cdn/shop/files/VTT287-CRM_1.jpg?v=1764052421",
-    price: 2599,
-    oldPrice: 3399,
-  },
-  {
-    id: 8,
-    name: "Graphic Sweatshirt",
-    Gender: "Kids",
-    image: "https://engine.com.pk/cdn/shop/files/VTT289-RED_1.jpg?v=1764052553",
-    price: 2399,
-    oldPrice: 3399,
-  },
-
-  {
-    id: 11,
-    name: "Girls Suit",
-    Gender: "Kids",
-    image: "https://engine.com.pk/cdn/shop/files/KE5052-BRP_5.jpg?v=1764132326",
-    price: 2599,
-    oldPrice: 3399,
-  },
-
-  {
-    id: 13,
-    name: "Girls Flared Denim",
-    Gender: "Kids",
-    image: "https://engine.com.pk/cdn/shop/files/VTD045-BLU_2.jpg?v=1764063747",
-    price: 1799,
-    oldPrice: 2699,
-  },
-];
-
-export default function ProductCarousel() {
+export default function NewArrivals() {
+  const [products, setProducts] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(4);
-  const [dragStartX, setDragStartX] = useState(0);
-  const [dragOffset, setDragOffset] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-
+  const [quickAdd, setQuickAdd] = useState(null); // productId for quick size picker
   const intervalRef = useRef(null);
-  const resumeTimeoutRef = useRef(null);
+  const dispatch = useDispatch();
 
-  // Adjust items per view based on screen width
+  useEffect(() => {
+    api.get("/products?isNewArrival=true")
+      .then(res => setProducts(res.data))
+      .catch(() => {});
+  }, []);
+
   useEffect(() => {
     const handleResize = () => {
-      const width = window.innerWidth;
-      if (width < 640) setItemsPerView(1);
-      else if (width < 768) setItemsPerView(2);
-      else if (width < 1024) setItemsPerView(3);
+      const w = window.innerWidth;
+      if (w < 640) setItemsPerView(1);
+      else if (w < 768) setItemsPerView(2);
+      else if (w < 1024) setItemsPerView(3);
       else setItemsPerView(4);
     };
     handleResize();
@@ -141,133 +33,113 @@ export default function ProductCarousel() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Auto-loop function
-  const startAutoLoop = () => {
-    if (intervalRef.current) clearInterval(intervalRef.current);
-    intervalRef.current = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % products.length);
-    }, 3000);
-  };
-
   useEffect(() => {
-    startAutoLoop();
+    if (products.length === 0) return;
+    intervalRef.current = setInterval(() => {
+      setCurrentIndex(prev => (prev + 1) % products.length);
+    }, 3000);
     return () => clearInterval(intervalRef.current);
-  }, []);
+  }, [products]);
 
-  const stopAutoLoop = () => {
-    clearInterval(intervalRef.current);
-    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+  const nextSlide = () => setCurrentIndex(p => (p + 1) % products.length);
+  const prevSlide = () => setCurrentIndex(p => (p - 1 + products.length) % products.length);
+
+  const handleQuickAddToCart = (product, size) => {
+    dispatch(addItem({
+      _id: product._id,
+      name: product.name,
+      price: product.price,
+      image: product.image?.[0]?.url,
+      size,
+      color: product.colors?.[0] || "Default",
+      quantity: 1,
+    }));
+    toast.success(`${product.name} added to cart!`);
+    setQuickAdd(null);
   };
 
-  const handleMouseEnter = () => {
-    stopAutoLoop();
-  };
+  if (products.length === 0) return null;
 
-  const handleMouseLeave = () => {
-    stopAutoLoop();
-    resumeTimeoutRef.current = setTimeout(() => {
-      startAutoLoop();
-    }, 1000); // 1 second delay
-  };
-
-  const nextSlide = () => setCurrentIndex((currentIndex + 1) % products.length);
-  const prevSlide = () =>
-    setCurrentIndex((currentIndex - 1 + products.length) % products.length);
-
-  // Drag handlers
-  const handleDragStart = (e) => {
-    setIsDragging(true);
-    const x = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
-    setDragStartX(x);
-    setDragOffset(0);
-    stopAutoLoop();
-  };
-
-  const handleDragMove = (e) => {
-    if (!isDragging) return;
-    const x = e.type === "touchmove" ? e.touches[0].clientX : e.clientX;
-    setDragOffset(x - dragStartX);
-  };
-
-  const handleDragEnd = () => {
-    if (!isDragging) return;
-    if (dragOffset < -50) nextSlide();
-    else if (dragOffset > 50) prevSlide();
-    setIsDragging(false);
-    setDragOffset(0);
-    resumeTimeoutRef.current = setTimeout(() => {
-      startAutoLoop();
-    }, 1000);
-  };
+  const displayProducts = products.length < itemsPerView
+    ? [...products, ...products, ...products].slice(0, Math.max(products.length, itemsPerView + 2))
+    : products;
 
   return (
-    <div className="text-left container mx-auto my-auto relative py-6  overflow-hidden">
+    <div className="container mx-auto my-auto relative py-6 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4">
-        <h1 className="text-3xl font-bold text-slate-800 mb-2 text-center">
-          New Arrivals
-        </h1>
+        <h1 className="text-3xl font-bold text-slate-800 mb-2 text-center">New Arrivals</h1>
         <p className="text-slate-600 font-semibold mb-8 text-center">
-          Discover our latest collection and enjoy a new range of fashion made
-          for every occasion.
+          Discover our latest collection of fashion made for every occasion.
         </p>
 
-        <div
-          className="relative cursor-grab select-none"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          onTouchStart={handleDragStart}
-          onTouchMove={handleDragMove}
-          onTouchEnd={handleDragEnd}
-        >
+        <div className="relative">
           <div
-            className={`flex transition-transform duration-500`}
-            style={{
-              transform: `translateX(calc(-${
-                (100 / itemsPerView) * currentIndex
-              }% + ${dragOffset}px))`,
-            }}
+            className="flex transition-transform duration-500"
+            style={{ transform: `translateX(-${(100 / itemsPerView) * currentIndex}%)` }}
           >
-            {[...products, ...products].map((product, index) => (
-              <div
-                key={index}
-                className="shrink-0 px-2"
-                style={{ width: `${100 / itemsPerView}%` }}
-              >
-                <div className="bg-white rounded-xl shadow-md overflow-hidden hover:scale-105 hover:shadow-xl transition-all duration-300">
-                  <div className="relative bg-gray-100 h-90 flex items-center justify-center overflow-hidden">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-full object-cover"
-                      draggable="false"
-                    />
-                    {product.oldPrice > product.price && (
-                      <div className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                        -
-                        {Math.round(
-                          ((product.oldPrice - product.price) /
-                            product.oldPrice) *
-                            100
-                        )}
-                        %
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-4">
-                    <h3 className="text-sm font-semibold text-slate-800">
-                      {product.name}
-                    </h3>
-                    <h3 className="text-sm font-semibold text-slate-800">
-                      {product.Gender}
-                    </h3>
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-lg font-bold text-black">
-                        PKR {product.price.toLocaleString()}
-                      </span>
+            {displayProducts.map((product, index) => (
+              <div key={`${product._id}-${index}`} className="shrink-0 px-2" style={{ width: `${100 / itemsPerView}%` }}>
+                <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 relative group">
+                  {/* Image — clickable to product page */}
+                  <Link to={`/product/${product._id}`}>
+                    <div className="relative bg-gray-100 h-72 overflow-hidden">
+                      <img
+                        src={product.image?.[0]?.url}
+                        alt={product.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
                       {product.oldPrice > product.price && (
-                        <span className="text-sm text-slate-400 line-through">
-                          PKR {product.oldPrice.toLocaleString()}
-                        </span>
+                        <div className="absolute top-3 right-3 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                          -{Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)}%
+                        </div>
+                      )}
+                    </div>
+                  </Link>
+
+                  {/* Quick Add to Cart button */}
+                  <button
+                    onClick={() => setQuickAdd(quickAdd === product._id ? null : product._id)}
+                    className="absolute top-3 left-3 bg-white rounded-full p-2 shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-black hover:text-white"
+                  >
+                    <ShoppingCart size={16} />
+                  </button>
+
+                  {/* Size picker popup */}
+                  {quickAdd === product._id && (
+                    <div className="absolute top-12 left-3 bg-white rounded-xl shadow-xl p-3 z-20 min-w-40">
+                      <p className="text-xs font-semibold text-gray-600 mb-2">Select Size:</p>
+                      <div className="flex flex-wrap gap-1">
+                        {product.sizes?.length > 0 ? (
+                          product.sizes.map(size => (
+                            <button
+                              key={size}
+                              onClick={() => handleQuickAddToCart(product, size)}
+                              className="px-3 py-1 text-xs border border-gray-300 rounded-lg hover:bg-black hover:text-white transition"
+                            >
+                              {size}
+                            </button>
+                          ))
+                        ) : (
+                          <button
+                            onClick={() => handleQuickAddToCart(product, "Free Size")}
+                            className="px-3 py-1 text-xs border border-gray-300 rounded-lg hover:bg-black hover:text-white transition"
+                          >
+                            Free Size
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="p-4">
+                    <Link to={`/product/${product._id}`}>
+                      <h3 className="text-sm font-semibold text-slate-800 hover:text-teal-600 transition truncate">{product.name}</h3>
+                      <p className="text-xs text-gray-400 mb-1">{product.gender}</p>
+                    </Link>
+                    <div className="flex items-center gap-2">
+                      <span className="text-base font-bold text-black">PKR {product.price?.toLocaleString()}</span>
+                      {product.oldPrice > product.price && (
+                        <span className="text-xs text-slate-400 line-through">PKR {product.oldPrice?.toLocaleString()}</span>
                       )}
                     </div>
                   </div>
@@ -276,18 +148,11 @@ export default function ProductCarousel() {
             ))}
           </div>
 
-          {/* Arrows */}
-          <button
-            onClick={prevSlide}
-            className="absolute left-0 top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:bg-slate-50 z-10 hidden sm:flex"
-          >
-            <ChevronLeft className="w-6 h-6 text-slate-700" />
+          <button onClick={prevSlide} className="absolute left-0 top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:bg-slate-50 z-10 hidden sm:flex">
+            <ChevronLeft className="w-5 h-5 text-slate-700" />
           </button>
-          <button
-            onClick={nextSlide}
-            className="absolute right-0 top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:bg-slate-50 z-10 hidden sm:flex"
-          >
-            <ChevronRight className="w-6 h-6 text-slate-700" />
+          <button onClick={nextSlide} className="absolute right-0 top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:bg-slate-50 z-10 hidden sm:flex">
+            <ChevronRight className="w-5 h-5 text-slate-700" />
           </button>
         </div>
       </div>

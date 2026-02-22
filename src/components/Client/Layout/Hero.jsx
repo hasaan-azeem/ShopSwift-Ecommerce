@@ -45,7 +45,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative mt-14 w-full h-[80vh] overflow-hidden">
+    <section className="relative w-full h-screen -mt-2 overflow-hidden">
       <div className="relative w-full h-full">
         {slides.map((slide, i) => (
           <div

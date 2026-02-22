@@ -1,21 +1,27 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
-#root{
-    font-family: "Poppins", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
-    
+#root {
+  font-family: "Poppins", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
 .font-bungee {
-  font-family: 'Bungee Outline', sans-serif;
+  font-family: "Bungee Outline", sans-serif;
 }
-
-* {
-  overscroll-behavior: none;
-}
-
 
 ::-webkit-scrollbar {
   display: none;
+}
+/* Hide the spin buttons for Chrome, Safari, Edge, and Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide the spin buttons for Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
