@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../redux/authSlice";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
   const { loading, error } = useSelector((state) => state.auth);
 
   const [email, setEmail] = useState("");
@@ -18,7 +20,9 @@ const Login = () => {
     e.preventDefault();
     try {
       await dispatch(loginUser({ email, password })).unwrap();
-      navigate("/");
+      const redirectTo = localStorage.getItem("redirectAfterLogin") || "/";
+      localStorage.removeItem("redirectAfterLogin");
+      navigate(redirectTo, { replace: true });
     } catch (err) {
       console.error(err);
     }
@@ -112,6 +116,7 @@ const Login = () => {
               >
                 {loading ? "Signing in..." : "Sign In"}
               </button>
+
               {/* Divider */}
               <div className="flex items-center gap-3 my-2">
                 <div className="flex-1 h-px bg-gray-300" />
@@ -134,7 +139,7 @@ const Login = () => {
               </button>
 
               <p className="text-sm text-gray-600 text-center">
-                Don’t have an account?{" "}
+                Don't have an account?{" "}
                 <Link
                   to="/register"
                   className="text-black font-medium hover:underline"

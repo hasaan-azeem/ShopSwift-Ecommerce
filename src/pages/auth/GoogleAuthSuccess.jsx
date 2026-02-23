@@ -9,16 +9,18 @@ const GoogleAuthSuccess = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const token = searchParams.get("token");
-    if (token) {
-      localStorage.setItem("token", token);
-      dispatch(fetchProfile()).then(() => {
-        navigate("/", { replace: true });
-      });
-    } else {
-      navigate("/login?error=google", { replace: true });
-    }
-  }, [dispatch, navigate, searchParams]);
+  const token = searchParams.get("token");
+  if (token) {
+    localStorage.setItem("token", token);
+    dispatch(fetchProfile()).then(() => {
+      const redirectTo = localStorage.getItem("redirectAfterLogin") || "/";
+      localStorage.removeItem("redirectAfterLogin");
+      navigate(redirectTo, { replace: true });
+    });
+  } else {
+    navigate("/login?error=google", { replace: true });
+  }
+}, [dispatch, navigate, searchParams]);
 
   return (
     <div className="min-h-screen flex items-center justify-center">

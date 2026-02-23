@@ -1,12 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const savedCart = localStorage.getItem("cart");
+const initialState = savedCart 
+  ? JSON.parse(savedCart) 
+  : { items: [], total: 0 };
+
 const cartSlice = createSlice({
   name: 'cart',
-  initialState: { items: [], total: 0 },
+  initialState,
   reducers: {
     addItem: (state, action) => {
       const { _id, size, color } = action.payload;
-      // Same product + same size + same color = increase qty
       const existing = state.items.find(
         i => i._id === _id && i.size === size && i.color === color
       );
@@ -16,14 +20,15 @@ const cartSlice = createSlice({
         state.items.push({ ...action.payload, quantity: action.payload.quantity || 1 });
       }
       state.total = state.items.reduce((sum, i) => sum + i.price * i.quantity, 0);
+      localStorage.setItem("cart", JSON.stringify({ items: state.items, total: state.total }));
     },
     removeItem: (state, action) => {
-      // action.payload = { _id, size, color }
       const { _id, size, color } = action.payload;
       state.items = state.items.filter(
         i => !(i._id === _id && i.size === size && i.color === color)
       );
       state.total = state.items.reduce((sum, i) => sum + i.price * i.quantity, 0);
+      localStorage.setItem("cart", JSON.stringify({ items: state.items, total: state.total }));
     },
     updateQuantity: (state, action) => {
       const { _id, size, color, quantity } = action.payload;
@@ -32,8 +37,13 @@ const cartSlice = createSlice({
       );
       if (item) item.quantity = quantity;
       state.total = state.items.reduce((sum, i) => sum + i.price * i.quantity, 0);
+      localStorage.setItem("cart", JSON.stringify({ items: state.items, total: state.total }));
     },
-    clearCart: state => { state.items = []; state.total = 0; }
+    clearCart: state => {
+      state.items = [];
+      state.total = 0;
+      localStorage.removeItem("cart");
+    }
   }
 });
 

@@ -62,7 +62,15 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/collections/:collection" element={<CollectionPage />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route
+            path="/cart"
+            element={
+              <UserProtectedRoute>
+                {" "}
+                <Cart />{" "}
+              </UserProtectedRoute>
+            }
+          />
           <Route path="/checkout" element={<StripeCheckout />} />
           <Route path="/order-confirmation" element={<OrderConfirmation />} />
           {/* FIX: Added leading slash to order/:id route */}
