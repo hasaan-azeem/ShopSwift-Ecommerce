@@ -31,7 +31,8 @@ const OrderDetailsPage = () => {
 
     fetchOrder();
   }, [id]);
-
+const token = localStorage.getItem("token");
+console.log("Token:", token);
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen gap-3 text-gray-400">
