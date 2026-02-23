@@ -94,7 +94,8 @@ const Products = () => {
             setEditProduct(null);
             setModalOpen(true);
           }}
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-black text-white text-sm font-medium rounded-xl hover:bg-gray-800 transition shrink-0"
+          className="inline-flex items-center gap-2 px-4 py-2.5 bg-black text-white text-sm font-medium rounded-xl hover:bg-gray-800 transition shrink-0 curepo
+          "
         >
           <Plus size={16} /> Add Product
         </button>
