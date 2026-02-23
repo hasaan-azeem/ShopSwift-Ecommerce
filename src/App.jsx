@@ -28,6 +28,7 @@ import OrderConfirmation from "./pages/store/OrderConfirmation";
 import OrderDetailsPage from "./pages/store/OrderDetailsPage";
 import MyOrdersPage from "./pages/users/MyOrdersPage";
 import AdminLayout from "./components/Admin/AdminLayout";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -52,6 +53,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop/>
       <Toaster position="top-right" theme="light" />
       <Routes>
         {/* Google OAuth success */}
