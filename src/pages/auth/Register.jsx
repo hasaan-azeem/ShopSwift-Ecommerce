@@ -100,7 +100,7 @@ const Register = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-9 text-gray-500 hover:text-black"
+                  className="absolute right-3 top-9 text-gray-500 hover:text-black cursor-pointer"
                 >
                   {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
                 </button>
@@ -108,7 +108,7 @@ const Register = () => {
 
               {/* Confirm Password */}
               <div className="relative">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-1 cursor-pointer">
                   Confirm Password *
                 </label>
                 <input
@@ -122,7 +122,7 @@ const Register = () => {
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-9 text-gray-500 hover:text-black"
+                  className="absolute right-3 top-9 text-gray-500 hover:text-black cursor-pointer"
                 >
                   {showConfirmPassword ? (
                     <FiEyeOff size={18} />
@@ -148,7 +148,7 @@ const Register = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full bg-black text-white py-2.5 rounded-md text-sm font-medium hover:bg-gray-800 transition ${
+                className={`w-full bg-black text-white py-2.5 rounded-md text-sm font-medium hover:bg-gray-800 transition cursor-pointer ${
                   loading ? "opacity-60 cursor-not-allowed" : ""
                 }`}
               >

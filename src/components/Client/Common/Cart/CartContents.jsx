@@ -62,7 +62,7 @@ const CartContents = () => {
                       );
                     }
                   }}
-                  className="border rounded px-2 py-0.5 text-sm hover:bg-gray-100"
+                  className="border rounded px-2 py-0.5 text-sm hover:bg-gray-100 cursor-pointer"
                 >
                   -
                 </button>
@@ -78,7 +78,7 @@ const CartContents = () => {
                       }),
                     )
                   }
-                  className="border rounded px-2 py-0.5 text-sm hover:bg-gray-100"
+                  className="border rounded px-2 py-0.5 text-sm hover:bg-gray-100 cursor-pointer"
                 >
                   +
                 </button>
@@ -95,7 +95,7 @@ const CartContents = () => {
                 }),
               )
             }
-            className="mt-1 hover:text-red-600 transition"
+            className="mt-1 hover:text-red-600 transition cursor-pointer"
           >
             <RiDeleteBin3Line className="h-5 w-5" />
           </button>
