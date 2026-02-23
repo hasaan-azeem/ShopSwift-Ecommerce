@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { Package, Loader2 } from "lucide-react";
 import OrdersTable from "../../components/Admin/ui/OrdersTable";
@@ -15,9 +16,12 @@ const Orders = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("http://localhost:5000/api/admin/orders", {
-        headers: getAuthHeader(),
-      });
+      const res = await fetch(
+        "https://shopswift-backend-kykw.onrender.com/api/admin/orders",
+        {
+          headers: getAuthHeader(),
+        },
+      );
       if (!res.ok) throw new Error("Failed to fetch orders");
       const data = await res.json();
       setOrders(data);
@@ -30,14 +34,17 @@ const Orders = () => {
 
   const handleStatusChange = async (id, status) => {
     try {
-      await fetch(`http://localhost:5000/api/admin/orders/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          ...getAuthHeader(),
+      await fetch(
+        `https://shopswift-backend-kykw.onrender.com/api/admin/orders/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            ...getAuthHeader(),
+          },
+          body: JSON.stringify({ status }),
         },
-        body: JSON.stringify({ status }),
-      });
+      );
       setOrders((prev) =>
         prev.map((o) => (o._id === id ? { ...o, status } : o)),
       );
@@ -54,10 +61,13 @@ const Orders = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this order?")) return;
     try {
-      await fetch(`https://shopswift-backend-kykw.onrender.com/api/admin/orders/${id}`, {
-        method: "DELETE",
-        headers: getAuthHeader(),
-      });
+      await fetch(
+        `https://shopswift-backend-kykw.onrender.com/api/admin/orders/${id}`,
+        {
+          method: "DELETE",
+          headers: getAuthHeader(),
+        },
+      );
       setOrders((prev) => prev.filter((o) => o._id !== id && o.id !== id));
     } catch (err) {
       console.error("Delete failed:", err);

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import {
@@ -28,7 +29,7 @@ const Users = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("http://localhost:5000/api/admin/users", {
+      const res = await fetch("https://shopswift-backend-kykw.onrender.com/api/admin/users", {
         headers: getAuthHeader(),
       });
       if (!res.ok) throw new Error("Failed to fetch users");
@@ -49,7 +50,7 @@ const Users = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this user?")) return;
     try {
-      await fetch(`http://localhost:5000/api/admin/users/${id}`, {
+      await fetch(`https://shopswift-backend-kykw.onrender.com/api/admin/users/${id}`, {
         method: "DELETE",
         headers: getAuthHeader(),
       });
