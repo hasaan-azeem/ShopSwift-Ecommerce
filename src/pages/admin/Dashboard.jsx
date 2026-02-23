@@ -50,7 +50,7 @@ const Dashboard = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:5000/api/admin/stats?range=${r}`,
+        `https://shopswift-backend-kykw.onrender.com/api/admin/stats?range=${r}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
