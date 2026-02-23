@@ -69,7 +69,7 @@
 // };
 
 // export default Loader;
-import loader from "../../../assets/Loader.gif";
+import loader from "../../../assets/Loader1.gif";
 
 const Loader = () => {
   return (
