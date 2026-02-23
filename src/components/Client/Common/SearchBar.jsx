@@ -31,7 +31,7 @@ const SearchBar = () => {
               />
               <button
                 type="button"
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer hidden sm:block"
               >
                 <HiMagnifyingGlass className="h-5 w-5 cursor-pointer" />
               </button>
