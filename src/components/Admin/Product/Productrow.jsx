@@ -38,7 +38,8 @@ const ProductRow = ({ product, onEdit, onDelete }) => {
               {product.name}
             </p>
             <p className="text-xs text-gray-400 mt-0.5">
-              ID: {product.id ?? product._id}
+              ID:{" "}
+              {(product.id ?? product._id)?.toString().slice(-8).toUpperCase()}
             </p>
           </div>
         </div>
@@ -80,14 +81,14 @@ const ProductRow = ({ product, onEdit, onDelete }) => {
         <div className="flex items-center gap-1">
           <button
             onClick={() => onEdit(product)}
-            className="p-1.5 rounded-lg text-gray-400 hover:bg-sky-50 hover:text-sky-600 transition"
+            className="p-1.5 rounded-lg text-gray-400 hover:bg-sky-50 hover:text-sky-600 transition cursor-pointer"
             title="Edit product"
           >
             <Pencil size={15} />
           </button>
           <button
             onClick={() => onDelete(product.id ?? product._id)}
-            className="p-1.5 rounded-lg text-gray-400 hover:bg-red-50 hover:text-red-500 transition"
+            className="p-1.5 rounded-lg text-gray-400 hover:bg-red-50 hover:text-red-500 transition cursor-pointer"
             title="Delete product"
           >
             <Trash2 size={15} />
