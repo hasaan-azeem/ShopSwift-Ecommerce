@@ -24,7 +24,6 @@
 //   );
 // }
 
-
 // import { useEffect, useRef } from "react";
 // import gsap from "gsap";
 
@@ -70,6 +69,7 @@
 // };
 
 // export default Loader;
+import loader from "../assets/loader1.gif";
 
 const Loader = () => {
   return (
@@ -77,11 +77,7 @@ const Loader = () => {
       id="app-loader"
       className="fixed inset-0 bg-white flex items-center justify-center z-50"
     >
-      <img
-        src="/src/assets/loader1.gif"
-        alt="Loading..."
-        className="w-36 h-36 object-contain"
-      />
+      <img src={loader} alt="Loading..." className="w-36 h-36 object-contain" />
     </div>
   );
 };
