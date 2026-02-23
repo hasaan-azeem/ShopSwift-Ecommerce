@@ -56,7 +56,7 @@ const OrderRow = ({ order, onStatusChange, onDelete }) => {
     <tr className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
       {/* Order # */}
       <td className="px-5 py-4 font-semibold text-gray-800 whitespace-nowrap text-sm">
-        #{order.id ?? order._id}
+        #{(order.id ?? order._id)?.toString().slice(-8).toUpperCase()}
       </td>
 
       {/* Date */}

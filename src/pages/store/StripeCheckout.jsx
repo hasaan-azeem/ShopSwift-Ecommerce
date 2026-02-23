@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
@@ -129,7 +130,7 @@ const PaymentForm = ({ shippingAddress, totalPrice, cartItems, onSuccess }) => {
       <button
         type="submit"
         disabled={!stripe || isProcessing}
-        className="w-full bg-indigo-600 text-white py-3 rounded hover:bg-indigo-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+        className="w-full bg-indigo-600 text-white py-3 rounded hover:bg-indigo-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
       >
         {isProcessing
           ? "Processing..."
@@ -174,7 +175,7 @@ const StripeCheckout = () => {
         </p>
         <button
           onClick={() => navigate("/")}
-          className="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800"
+          className="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 cursor-pointer"
         >
           Continue Shopping
         </button>
@@ -242,7 +243,7 @@ const StripeCheckout = () => {
             <button
               type="submit"
               disabled={loadingIntent}
-              className="mt-6 w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition-colors disabled:opacity-60"
+              className="mt-6 w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition-colors disabled:opacity-60 cursor-pointer"
             >
               {loadingIntent ? "Loading..." : "Continue to Payment"}
             </button>

@@ -72,19 +72,6 @@ const Dashboard = () => {
     fetchData(range);
   }, [range]);
 
-  // Map raw API order shape to what OrdersTable expects
-  const mappedOrders = orders.map((o) => ({
-    id: `#${o.orderId}`,
-    customer: o.userName,
-    date: new Date(o.createdAt).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    }),
-    amount: `Rs. ${Number(o.total).toLocaleString()}`,
-    status: o.status.charAt(0).toUpperCase() + o.status.slice(1),
-  }));
-
   return (
     <div className="p-6 max-w-7xl mx-auto w-full">
       {/* Heading */}
@@ -126,7 +113,7 @@ const Dashboard = () => {
       </div>
 
       {/* Recent orders */}
-      <OrdersTable orders={mappedOrders} />
+      <OrdersTable orders={orders} title="Recent Orders" showViewAll={true} />
     </div>
   );
 };

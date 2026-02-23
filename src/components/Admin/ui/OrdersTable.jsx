@@ -1,13 +1,16 @@
 import OrderRow from "./OrderRow";
 
 const DASHBOARD_HEADERS = [
-  "Order ID",
+  "Order #",
+  "Date", 
   "Customer",
-  "Date",
-  "Amount",
+  "Contact",
+  "Address",
   "Status",
-  "",
+  "Total",
+  "Items",
 ];
+
 const FULL_HEADERS = [
   "Order #",
   "Date",
