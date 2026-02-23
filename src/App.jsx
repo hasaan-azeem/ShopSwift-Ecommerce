@@ -55,7 +55,6 @@ function App() {
       <Toaster position="top-right" theme="light" />
       <Routes>
         {/* Google OAuth success */}
-        <Route path="/auth/google/success" element={<GoogleAuthSuccess />} />
 
         {/* User Store */}
         <Route element={<UserLayout />}>
@@ -76,6 +75,7 @@ function App() {
               </UserProtectedRoute>
             }
           />
+          <Route path="/auth/google/success" element={<GoogleAuthSuccess />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Route>
