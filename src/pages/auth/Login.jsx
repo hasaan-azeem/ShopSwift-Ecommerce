@@ -80,14 +80,14 @@ const Login = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-9 text-gray-500 hover:text-black"
+                  className="absolute right-3 top-9 text-gray-500 hover:text-black cursor-pointer"
                 >
                   {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
                 </button>
               </div>
 
               {/* Remember + Forgot */}
-              <div className="flex items-center justify-between text-sm">
+              <div className="flex items-center justify-between text-sm cursor-pointer">
                 <label className="flex items-center gap-2">
                   <input
                     type="checkbox"
