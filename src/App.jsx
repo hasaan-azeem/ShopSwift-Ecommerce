@@ -46,7 +46,7 @@ function App() {
         onComplete: () => setLoading(false),
       });
     }, 1900);
-  }, []);
+  }, [dispatch]);
 
   if (loading) return <Loader />;
 

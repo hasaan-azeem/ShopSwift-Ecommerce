@@ -147,7 +147,7 @@ const Users = () => {
             className="bg-white rounded-2xl border border-gray-100 shadow-sm px-5 py-4 flex items-center gap-4"
           >
             <div
-              className={`w-9 h-9 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center text-white shrink-0`}
+              className={`w-9 h-9 rounded-xl bg-linear-to-br ${color} flex items-center justify-center text-white shrink-0`}
             >
               <Icon size={15} />
             </div>

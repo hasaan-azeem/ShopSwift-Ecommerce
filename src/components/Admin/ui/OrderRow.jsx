@@ -73,7 +73,7 @@ const OrderRow = ({ order, onStatusChange, onDelete }) => {
       {/* Customer */}
       <td className="px-5 py-4">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-gray-600 text-xs font-semibold shrink-0">
+          <div className="w-8 h-8 rounded-lg bg-linear-to-br from-gray-200 to-gray-300 flex items-center justify-center text-gray-600 text-xs font-semibold shrink-0">
             {(order.name ?? order.userName ?? "G").charAt(0).toUpperCase()}
           </div>
           <div>
