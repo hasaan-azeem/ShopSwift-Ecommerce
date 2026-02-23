@@ -50,7 +50,7 @@ const StatusSelect = ({ orderId, current, onChange }) => {
 };
 
 const OrderRow = ({ order, onStatusChange, onDelete }) => {
-  const firstItem = order.items?.[0];
+  const firstItem = order.orderItems?.[0];
 
   return (
     <tr className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
@@ -135,7 +135,7 @@ const OrderRow = ({ order, onStatusChange, onDelete }) => {
                 {firstItem.productName ?? firstItem.name}
               </p>
               <p className="text-xs text-gray-400">
-                Qty. {firstItem.quantity} | PKR{" "}
+                Qty. {firstItem.qty} | PKR{" "}
                 {Number(firstItem.price ?? 0).toLocaleString()}
               </p>
             </div>
