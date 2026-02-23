@@ -216,7 +216,7 @@ const Navigation = () => {
           {!search && (
             <button
               onClick={openAdd}
-              className="mt-4 inline-flex items-center gap-1.5 px-4 py-2 bg-black text-white text-xs font-medium rounded-xl hover:bg-gray-800 transition"
+              className="mt-4 inline-flex items-center gap-1.5 px-4 py-2 bg-black text-white text-xs font-medium rounded-xl hover:bg-gray-800 transition cursor-pointer"
             >
               <Plus size={13} />
               Add Category
