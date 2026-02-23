@@ -28,7 +28,7 @@ const Navigation = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editItem, setEditItem] = useState(null);
 
-  const API = "http://localhost:5000/api/admin";
+  const API = "https://shopswift-backend-kykw.onrender.com/api/admin";
   const getHeaders = () => ({
     "Content-Type": "application/json",
     Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
@@ -75,7 +75,7 @@ const Navigation = () => {
   useEffect(() => {
     fetchItems();
   }, []);
-  
+
   const openAdd = () => {
     setEditItem(null);
     setModalOpen(true);

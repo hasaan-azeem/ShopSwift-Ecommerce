@@ -22,24 +22,26 @@ const Products = () => {
   const [editProduct, setEditProduct] = useState(null);
 
   const fetchProducts = async () => {
-  setLoading(true);
-  setError(null);
-  try {
-    const res = await api.get("/admin/products");
-    setProducts(res.data);
-  } catch (err) {
-    setError(err.response?.data?.message || "Failed to fetch products");
-  } finally {
-    setLoading(false);
-  }
-};
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await api.get("/admin/products");
+      setProducts(res.data);
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to fetch products");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const fetchCategories = async () => {
-  try {
-    const res = await api.get("/admin/categories");
-    setCategories(res.data);
-  } catch { /* empty */ }
-};
+    try {
+      const res = await api.get("/admin/categories");
+      setCategories(res.data);
+    } catch {
+      /* empty */
+    }
+  };
 
   useEffect(() => {
     fetchProducts();
@@ -47,20 +49,20 @@ const Products = () => {
   }, []);
 
   const handleSave = async (formData, id) => {
-  if (id) {
-    await api.put(`/admin/products/${id}`, formData);
-  } else {
-    await api.post("/admin/products", formData);
-  }
-  await fetchProducts();
-};
+    if (id) {
+      await api.put(`/admin/products/${id}`, formData);
+    } else {
+      await api.post("/admin/products", formData);
+    }
+    await fetchProducts();
+  };
 
   const handleDelete = async (id) => {
-  if (!window.confirm("Delete this product?")) return;
+    if (!window.confirm("Delete this product?")) return;
 
-  await api.delete(`/admin/products/${id}`);
-  setProducts((prev) => prev.filter((p) => (p.id ?? p._id) !== id));
-};
+    await api.delete(`/admin/products/${id}`);
+    setProducts((prev) => prev.filter((p) => (p.id ?? p._id) !== id));
+  };
 
   const filtered = products.filter(
     (p) =>

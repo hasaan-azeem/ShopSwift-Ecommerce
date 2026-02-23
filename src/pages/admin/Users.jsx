@@ -62,7 +62,7 @@ const Users = () => {
   // FIX: Added full URL, auth header, and fixed role value "customer" to "user"
   const handleToggleAdmin = async (id, makeAdmin) => {
     try {
-      await fetch(`http://localhost:5000/api/admin/users/${id}`, {
+      await fetch(`https://shopswift-backend-kykw.onrender.com/api/admin/users/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

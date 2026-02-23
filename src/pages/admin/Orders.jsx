@@ -54,7 +54,7 @@ const Orders = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this order?")) return;
     try {
-      await fetch(`http://localhost:5000/api/admin/orders/${id}`, {
+      await fetch(`https://shopswift-backend-kykw.onrender.com/api/admin/orders/${id}`, {
         method: "DELETE",
         headers: getAuthHeader(),
       });
