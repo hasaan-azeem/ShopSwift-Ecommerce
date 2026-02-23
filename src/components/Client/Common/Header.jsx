@@ -73,7 +73,7 @@ const Header = () => {
             {/* Cart */}
             <button
               onClick={() => setDrawerOpen(!drawerOpen)}
-              className="relative hover:text-teal-600 transition"
+              className="relative hover:text-teal-600 transition cursor-pointer"
             >
               <HiOutlineShoppingBag className="h-6 w-6" />
               {cartCount > 0 && (
@@ -83,7 +83,7 @@ const Header = () => {
               )}
             </button>
 
-            <div className="overflow-hidden">
+            <div className="overflow-hidden ">
               <SearchBar />
             </div>
 
