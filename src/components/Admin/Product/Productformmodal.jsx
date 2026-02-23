@@ -193,7 +193,7 @@ const ProductFormModal = ({
   if (!open) return null;
 
   return (
-    <div className="inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
       <div
         className="absolute inset-0 bg-black/50 backdrop-blur-sm"
         onClick={onClose}
