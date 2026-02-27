@@ -46,7 +46,12 @@ const Header = () => {
           </nav>
 
           <div className="flex items-center space-x-4 text-gray-700">
-            <Link to="/admin" className="block bg-black px-2 rounded text-sm text-white">Admin</Link>
+            <Link
+              to="/admin"
+              className="sm:block hidden bg-black px-2 rounded text-sm text-white"
+            >
+              Admin
+            </Link>
 
             {/* User icon — avatar if logged in with Google, initial if email, login icon if not logged in */}
             <Link
@@ -110,27 +115,40 @@ const Header = () => {
         />
       )}
 
-      <aside
-        className={`fixed top-0 left-0 h-full w-64 bg-white z-50 shadow-xl transform transition-transform duration-300 ${mobileOpen ? "translate-x-0" : "-translate-x-full"}`}
+   <aside
+  className={`fixed top-0 left-0 h-full w-64 bg-white z-50 shadow-xl
+  transform transition-transform duration-300 ease-in-out
+  ${mobileOpen ? "translate-x-0" : "-translate-x-full"}`}
+>
+  {/* Header */}
+  <div className="flex items-center justify-between px-5 py-4 border-b border-gray-200">
+    <h3 className="text-lg font-semibold">Menu</h3>
+    <button onClick={() => setMobileOpen(false)}>
+      <FiX className="text-2xl" />
+    </button>
+  </div>
+
+  {/* Drawer body with links at top and admin at bottom */}
+  <div className="flex flex-col justify-between h-[calc(100%-64px)] px-6 py-6">
+    {/* Top links */}
+    <nav className="flex flex-col gap-6 text-gray-800 font-medium text-lg">
+      <Link to="/collections/men" onClick={() => setMobileOpen(false)}>Men</Link>
+      <Link to="/collections/women" onClick={() => setMobileOpen(false)}>Women</Link>
+      <Link to="/collections/kids" onClick={() => setMobileOpen(false)}>Kids</Link>
+    </nav>
+
+    {/* Admin at bottom */}
+    
+      <Link
+        to="/admin"
+        onClick={() => setMobileOpen(false)}
+        className="bg-black text-white px-3 py-2 rounded text-center"
       >
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-200">
-          <h3 className="text-lg font-semibold">Menu</h3>
-          <button onClick={() => setMobileOpen(false)}>
-            <FiX className="text-2xl" />
-          </button>
-        </div>
-        <nav className="flex flex-col mt-6 space-y-6 text-gray-800 font-medium px-6 text-lg">
-          <Link to="/collections/men" onClick={() => setMobileOpen(false)}>
-            Men
-          </Link>
-          <Link to="/collections/women" onClick={() => setMobileOpen(false)}>
-            Women
-          </Link>
-          <Link to="/collections/kids" onClick={() => setMobileOpen(false)}>
-            Kids
-          </Link>
-        </nav>
-      </aside>
+        Admin
+      </Link>
+    
+  </div>
+</aside>
 
       <CartDrawer
         drawerOpen={drawerOpen}
