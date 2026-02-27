@@ -33,7 +33,7 @@ const SearchBar = () => {
                 type="button"
                 className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer hidden sm:block"
               >
-                <HiMagnifyingGlass className="h-5 w-5 cursor-pointer" />
+                <HiMagnifyingGlass className="h-6 w-6 cursor-pointer" />
               </button>
             </div>
 
@@ -48,7 +48,7 @@ const SearchBar = () => {
         </div>
       ) : (
         <button onClick={() => setIsOpen(true)}>
-          <FiSearch className="h-6 w-6 text-gray-700 hover:text-teal-600 transition" />
+          <FiSearch className="h-6 w-6 mt-2 text-gray-700 hover:text-teal-600 transition cursor-pointer" />
         </button>
       )}
     </div>
